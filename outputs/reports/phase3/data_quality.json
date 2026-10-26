@@ -1,0 +1,465 @@
+{
+  "n_rows": 5712,
+  "n_cases": 3,
+  "case_counts": {
+    "1": 2091,
+    "2": 2910,
+    "3": 711
+  },
+  "columns": [
+    "case_id",
+    "window_index",
+    "window_start_sec",
+    "window_end_sec",
+    "n_samples",
+    "delta_power",
+    "theta_power",
+    "alpha_power",
+    "beta_power",
+    "gamma_power",
+    "delta_relative",
+    "theta_relative",
+    "alpha_relative",
+    "beta_relative",
+    "gamma_relative",
+    "spectral_entropy",
+    "spectral_edge_hz",
+    "mean",
+    "std",
+    "rms",
+    "variance",
+    "hjorth_mobility",
+    "hjorth_complexity",
+    "BIS_target",
+    "bis_delay_sec",
+    "missing_fraction",
+    "n_missing",
+    "peak_abs_uv",
+    "bis_n",
+    "bis_first_sec",
+    "bis_last_sec",
+    "sqi_median",
+    "sampling_rate_hz"
+  ],
+  "n_model_features": 18,
+  "model_features": [
+    "delta_power",
+    "theta_power",
+    "alpha_power",
+    "beta_power",
+    "gamma_power",
+    "delta_relative",
+    "theta_relative",
+    "alpha_relative",
+    "beta_relative",
+    "gamma_relative",
+    "spectral_entropy",
+    "spectral_edge_hz",
+    "mean",
+    "std",
+    "rms",
+    "variance",
+    "hjorth_mobility",
+    "hjorth_complexity"
+  ],
+  "frequency_features": [
+    "delta_power",
+    "theta_power",
+    "alpha_power",
+    "beta_power",
+    "gamma_power",
+    "delta_relative",
+    "theta_relative",
+    "alpha_relative",
+    "beta_relative",
+    "gamma_relative",
+    "spectral_entropy",
+    "spectral_edge_hz"
+  ],
+  "time_features": [
+    "mean",
+    "std",
+    "rms",
+    "variance",
+    "hjorth_mobility",
+    "hjorth_complexity"
+  ],
+  "absent_features": {
+    "total_power": "Total spectral power is not a column. The five absolute band powers already partition the in-band spectrum, so no summed column is added.",
+    "skewness": "Skewness was not extracted in Phase 2.",
+    "kurtosis": "Kurtosis was not extracted in Phase 2.",
+    "hjorth_activity": "Hjorth activity is the signal variance. That value is already stored as variance, and it is not duplicated under another name."
+  },
+  "forbidden_inputs_present_but_not_used": [
+    "BIS_target",
+    "bis_delay_sec",
+    "bis_first_sec",
+    "bis_last_sec",
+    "bis_n",
+    "case_id",
+    "missing_fraction",
+    "n_missing",
+    "n_samples",
+    "peak_abs_uv",
+    "sampling_rate_hz",
+    "sqi_median",
+    "window_end_sec",
+    "window_index",
+    "window_start_sec"
+  ],
+  "non_finite_counts": {},
+  "duplicate_window_keys": 0,
+  "timestamps": {
+    "issues": [],
+    "gaps_after_rejected_windows": [
+      {
+        "case_id": 1,
+        "n_windows": 2091,
+        "n_hops_longer_than_5s": 22,
+        "max_hop_sec": 35.0
+      },
+      {
+        "case_id": 2,
+        "n_windows": 2910,
+        "n_hops_longer_than_5s": 31,
+        "max_hop_sec": 35.0
+      },
+      {
+        "case_id": 3,
+        "n_windows": 711,
+        "n_hops_longer_than_5s": 9,
+        "max_hop_sec": 35.0
+      }
+    ],
+    "note": "Accepted windows use a 5-second hop. A longer hop means Phase 2 rejected one or more intervening windows. Those gaps are not duplicate or reordered timestamps."
+  },
+  "bis_overall": {
+    "n": 5712,
+    "mean": 48.14651610644258,
+    "std": 12.861684533487683,
+    "min": 0.0,
+    "p05": 29.1,
+    "p25": 42.5,
+    "median": 47.05,
+    "p75": 52.7,
+    "p95": 75.9,
+    "max": 97.7
+  },
+  "bis_histogram": {
+    "0\u201320": 14,
+    "20\u201340": 1041,
+    "40\u201360": 4077,
+    "60\u201380": 420,
+    "80\u2013100": 160
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "n_windows": 2091,
+      "bis": {
+        "n": 2091,
+        "mean": 47.10590626494499,
+        "std": 13.158061276114054,
+        "min": 0.0,
+        "p05": 27.799999999999997,
+        "p25": 39.349999999999994,
+        "median": 48.7,
+        "p75": 53.650000000000006,
+        "p95": 68.19999999999999,
+        "max": 97.7
+      },
+      "bis_histogram": {
+        "0\u201320": 9,
+        "20\u201340": 522,
+        "40\u201360": 1386,
+        "60\u201380": 136,
+        "80\u2013100": 38
+      },
+      "sqi": {
+        "n": 2091,
+        "mean": 81.50136298421806,
+        "std": 19.532290076351295,
+        "min": 0.0,
+        "p05": 43.25,
+        "p25": 69.2,
+        "median": 87.8,
+        "p75": 97.4,
+        "p95": 100.0,
+        "max": 100.0
+      },
+      "sqi_histogram": {
+        "0\u201320": 21,
+        "20\u201350": 117,
+        "50\u201380": 646,
+        "80\u2013100": 1307
+      },
+      "n_bis_zero": 9
+    },
+    {
+      "case_id": 2,
+      "n_windows": 2910,
+      "bis": {
+        "n": 2910,
+        "mean": 50.00180412371134,
+        "std": 9.776707944027011,
+        "min": 0.0,
+        "p05": 41.222500000000004,
+        "p25": 44.05,
+        "median": 47.2,
+        "p75": 51.95,
+        "p95": 74.08249999999997,
+        "max": 97.7
+      },
+      "bis_histogram": {
+        "0\u201320": 4,
+        "20\u201340": 49,
+        "40\u201360": 2551,
+        "60\u201380": 260,
+        "80\u2013100": 46
+      },
+      "sqi": {
+        "n": 2910,
+        "mean": 90.23223367697597,
+        "std": 14.347696289827164,
+        "min": 0.0,
+        "p05": 57.7,
+        "p25": 82.7,
+        "median": 97.4,
+        "p75": 100.0,
+        "p95": 100.0,
+        "max": 100.0
+      },
+      "sqi_histogram": {
+        "0\u201320": 6,
+        "20\u201350": 64,
+        "50\u201380": 474,
+        "80\u2013100": 2366
+      },
+      "n_bis_zero": 4
+    },
+    {
+      "case_id": 3,
+      "n_windows": 711,
+      "bis": {
+        "n": 711,
+        "mean": 43.61350210970465,
+        "std": 19.76768468428768,
+        "min": 0.0,
+        "p05": 27.95,
+        "p25": 31.775,
+        "median": 35.85,
+        "p75": 45.425000000000004,
+        "p95": 95.94999999999999,
+        "max": 97.7
+      },
+      "bis_histogram": {
+        "0\u201320": 1,
+        "20\u201340": 470,
+        "40\u201360": 140,
+        "60\u201380": 24,
+        "80\u2013100": 76
+      },
+      "sqi": {
+        "n": 711,
+        "mean": 85.43530239099859,
+        "std": 17.807484871656357,
+        "min": 0.0,
+        "p05": 46.050000000000004,
+        "p25": 78.525,
+        "median": 94.2,
+        "p75": 97.4,
+        "p95": 100.0,
+        "max": 100.0
+      },
+      "sqi_histogram": {
+        "0\u201320": 2,
+        "20\u201350": 40,
+        "50\u201380": 145,
+        "80\u2013100": 524
+      },
+      "n_bis_zero": 1
+    }
+  ],
+  "bis_zero_windows": [
+    {
+      "case_id": 1,
+      "window_index": 18,
+      "window_start_sec": 90.0,
+      "window_end_sec": 100.0,
+      "sqi_median": 0.0,
+      "std_uv": 0.7828475287239705,
+      "spectral_edge_hz": 34.0,
+      "delta_relative": 0.624967907240991,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 22,
+      "window_start_sec": 110.0,
+      "window_end_sec": 120.0,
+      "sqi_median": 0.4,
+      "std_uv": 30.05702966933589,
+      "spectral_edge_hz": 17.0,
+      "delta_relative": 0.8750262025895467,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 23,
+      "window_start_sec": 115.0,
+      "window_end_sec": 125.0,
+      "sqi_median": 8.35,
+      "std_uv": 27.345199330074454,
+      "spectral_edge_hz": 11.0,
+      "delta_relative": 0.8761703015890671,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 24,
+      "window_start_sec": 120.0,
+      "window_end_sec": 130.0,
+      "sqi_median": 9.2,
+      "std_uv": 19.89899472950987,
+      "spectral_edge_hz": 29.5,
+      "delta_relative": 0.7983724652280489,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 25,
+      "window_start_sec": 125.0,
+      "window_end_sec": 135.0,
+      "sqi_median": 10.0,
+      "std_uv": 26.230237355181746,
+      "spectral_edge_hz": 28.0,
+      "delta_relative": 0.7585043425076375,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 26,
+      "window_start_sec": 130.0,
+      "window_end_sec": 140.0,
+      "sqi_median": 10.8,
+      "std_uv": 32.426001457478705,
+      "spectral_edge_hz": 23.5,
+      "delta_relative": 0.7885534914524078,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 27,
+      "window_start_sec": 135.0,
+      "window_end_sec": 145.0,
+      "sqi_median": 11.7,
+      "std_uv": 29.752009394886326,
+      "spectral_edge_hz": 25.5,
+      "delta_relative": 0.7674094543577035,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 28,
+      "window_start_sec": 140.0,
+      "window_end_sec": 150.0,
+      "sqi_median": 11.7,
+      "std_uv": 31.754882885313176,
+      "spectral_edge_hz": 23.5,
+      "delta_relative": 0.746211003803965,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 1,
+      "window_index": 29,
+      "window_start_sec": 145.0,
+      "window_end_sec": 155.0,
+      "sqi_median": 13.3,
+      "std_uv": 30.23865902466476,
+      "spectral_edge_hz": 21.0,
+      "delta_relative": 0.7247189143112243,
+      "sr_median": 0.0,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 2,
+      "window_index": 10,
+      "window_start_sec": 50.0,
+      "window_end_sec": 60.0,
+      "sqi_median": 3.35,
+      "std_uv": 91.62427698681735,
+      "spectral_edge_hz": 5.5,
+      "delta_relative": 0.8839930735174015,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 2,
+      "window_index": 11,
+      "window_start_sec": 55.0,
+      "window_end_sec": 65.0,
+      "sqi_median": 7.9,
+      "std_uv": 109.81751915501138,
+      "spectral_edge_hz": 5.0,
+      "delta_relative": 0.8920277562614122,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 2,
+      "window_index": 12,
+      "window_start_sec": 60.0,
+      "window_end_sec": 70.0,
+      "sqi_median": 9.2,
+      "std_uv": 121.82910603660325,
+      "spectral_edge_hz": 4.5,
+      "delta_relative": 0.9137061520110902,
+      "sr_median": null,
+      "classification": "monitor_startup_unreliable"
+    },
+    {
+      "case_id": 2,
+      "window_index": 3027,
+      "window_start_sec": 15135.0,
+      "window_end_sec": 15145.0,
+      "sqi_median": 0.0,
+      "std_uv": 1.6781129313643413,
+      "spectral_edge_hz": 19.5,
+      "delta_relative": 0.8572474424514919,
+      "sr_median": null,
+      "classification": "end_of_recording_or_dropout_unreliable"
+    },
+    {
+      "case_id": 3,
+      "window_index": 744,
+      "window_start_sec": 3720.0,
+      "window_end_sec": 3730.0,
+      "sqi_median": 0.0,
+      "std_uv": 1.293249131078196,
+      "spectral_edge_hz": 29.0,
+      "delta_relative": 0.7402294039154471,
+      "sr_median": null,
+      "classification": "end_of_recording_or_dropout_unreliable"
+    }
+  ],
+  "bis_zero_classification_counts": {
+    "monitor_startup_unreliable": 12,
+    "end_of_recording_or_dropout_unreliable": 2
+  },
+  "rows_excluded": 0,
+  "exclusion_reasons": [],
+  "notes": [
+    "14 windows have BIS = 0. They are retained in the primary models. SQI is not used as an input. Classifications are heuristics for the quality report.",
+    "No rows were removed while building this report."
+  ],
+  "critical_failures": [],
+  "target": "BIS_target"
+}

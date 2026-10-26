@@ -1,0 +1,13 @@
+{
+  "models": [
+    "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases\\median.joblib",
+    "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases\\random_forest.joblib",
+    "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases\\hist_gradient_boosting.joblib"
+  ],
+  "training_cases": [
+    1,
+    2,
+    3
+  ],
+  "unseen_case_evaluation": false
+}

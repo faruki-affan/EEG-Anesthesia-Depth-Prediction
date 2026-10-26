@@ -1,0 +1,24 @@
+# EEG-Based Depth of Anesthesia Estimation
+# Python 3.11 is the intended version. This machine currently has Python 3.14.
+# Phase 1 packages install on 3.14. Deep-learning packages are listed for later
+# phases and may need a 3.11 environment if wheels are unavailable.
+
+# Phase 1 — data access and visualization
+numpy>=2.0
+pandas>=2.2
+PyYAML>=6.0
+requests>=2.32
+matplotlib>=3.8
+vitaldb>=1.5
+
+# Phase 2 — preprocessing and spectral features
+scipy>=1.13
+
+# Later phases — not used by Phase 2
+pyarrow>=16.0
+mne>=1.7
+scikit-learn>=1.5
+joblib>=1.4
+torch>=2.2
+plotly>=5.22
+streamlit>=1.37

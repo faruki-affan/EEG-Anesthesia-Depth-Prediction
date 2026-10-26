@@ -1,0 +1,200 @@
+{
+  "sqi_min": 50.0,
+  "n_windows_excluded": 236,
+  "n_windows_used": 5476,
+  "n_cases": 3,
+  "note": "SQI filters the rows only. It is not a model input. These scores are a sensitivity analysis, not the primary result.",
+  "folds": [
+    {
+      "test_case": 1,
+      "training_cases": [
+        2,
+        3
+      ],
+      "n_train_windows": 3517,
+      "n_test_windows": 1959,
+      "metrics": {
+        "median": {
+          "n_windows": 1959,
+          "mae": 8.97281776416539,
+          "rmse": 11.532944964352826,
+          "r2": -0.00023915311089051094,
+          "pearson_r": null,
+          "bias": -0.17833078101071856,
+          "median_absolute_error": 7.0,
+          "p90_absolute_error": 18.25,
+          "within_5_percent": 38.33588565594691,
+          "within_10_percent": 62.78713629402757,
+          "n_cases": 1
+        },
+        "random_forest": {
+          "n_windows": 1959,
+          "mae": 11.27194185801645,
+          "rmse": 15.211155355347149,
+          "r2": -0.7399942582221313,
+          "pearson_r": 0.024816715309503565,
+          "bias": 6.478801335905679,
+          "median_absolute_error": 7.317855490449119,
+          "p90_absolute_error": 27.167819669901846,
+          "within_5_percent": 40.224604389994894,
+          "within_10_percent": 58.192955589586525,
+          "n_cases": 1
+        },
+        "hist_gradient_boosting": {
+          "n_windows": 1959,
+          "mae": 13.038466420160697,
+          "rmse": 17.46333593186039,
+          "r2": -1.2933895434114908,
+          "pearson_r": 0.02436434768697343,
+          "bias": 9.75086643707105,
+          "median_absolute_error": 8.866508992178339,
+          "p90_absolute_error": 29.644592727550176,
+          "within_5_percent": 35.987748851454825,
+          "within_10_percent": 52.42470648289944,
+          "n_cases": 1
+        }
+      }
+    },
+    {
+      "test_case": 2,
+      "training_cases": [
+        1,
+        3
+      ],
+      "n_train_windows": 2629,
+      "n_test_windows": 2847,
+      "metrics": {
+        "median": {
+          "n_windows": 2847,
+          "mae": 6.211046715841236,
+          "rmse": 10.211237886321975,
+          "r2": -0.16207590266910898,
+          "pearson_r": null,
+          "bias": -3.8134703196347033,
+          "median_absolute_error": 3.4000000000000057,
+          "p90_absolute_error": 14.390000000000011,
+          "within_5_percent": 67.72040744643483,
+          "within_10_percent": 82.05128205128204,
+          "n_cases": 1
+        },
+        "random_forest": {
+          "n_windows": 2847,
+          "mae": 5.930536000831223,
+          "rmse": 8.17673706606635,
+          "r2": 0.25486017899282754,
+          "pearson_r": 0.5572909702506771,
+          "bias": 1.1553836357740146,
+          "median_absolute_error": 4.880770266401683,
+          "p90_absolute_error": 10.754049037239325,
+          "within_5_percent": 51.73867228661749,
+          "within_10_percent": 88.30347734457324,
+          "n_cases": 1
+        },
+        "hist_gradient_boosting": {
+          "n_windows": 2847,
+          "mae": 6.417864396849095,
+          "rmse": 8.903699847465672,
+          "r2": 0.11647522931369003,
+          "pearson_r": 0.5279057189789443,
+          "bias": 1.5610283513246632,
+          "median_absolute_error": 5.011662300025662,
+          "p90_absolute_error": 12.26810170661702,
+          "within_5_percent": 49.84193888303478,
+          "within_10_percent": 85.21250439058659,
+          "n_cases": 1
+        }
+      }
+    },
+    {
+      "test_case": 3,
+      "training_cases": [
+        1,
+        2
+      ],
+      "n_train_windows": 4806,
+      "n_test_windows": 670,
+      "metrics": {
+        "median": {
+          "n_windows": 670,
+          "mae": 15.449552238805971,
+          "rmse": 18.845786575300885,
+          "r2": -0.08012344263099891,
+          "pearson_r": null,
+          "bias": 5.132835820895525,
+          "median_absolute_error": 13.750000000000007,
+          "p90_absolute_error": 28.26500000000001,
+          "within_5_percent": 8.955223880597014,
+          "within_10_percent": 27.761194029850746,
+          "n_cases": 1
+        },
+        "random_forest": {
+          "n_windows": 670,
+          "mae": 16.58241814288826,
+          "rmse": 19.234661016989254,
+          "r2": -0.125159078590815,
+          "pearson_r": 0.5427733807253026,
+          "bias": 11.74682200590902,
+          "median_absolute_error": 15.893694489589226,
+          "p90_absolute_error": 26.273679477443896,
+          "within_5_percent": 10.149253731343283,
+          "within_10_percent": 24.17910447761194,
+          "n_cases": 1
+        },
+        "hist_gradient_boosting": {
+          "n_windows": 670,
+          "mae": 22.593075791227115,
+          "rmse": 25.12979359137012,
+          "r2": -0.9205370856044797,
+          "pearson_r": 0.4711434462353975,
+          "bias": 19.253636231036634,
+          "median_absolute_error": 23.356314882395097,
+          "p90_absolute_error": 35.488500557659236,
+          "within_5_percent": 5.6716417910447765,
+          "within_10_percent": 15.671641791044777,
+          "n_cases": 1
+        }
+      }
+    }
+  ],
+  "pooled": {
+    "median": {
+      "n_windows": 5476,
+      "mae": 8.329401022644266,
+      "rmse": 12.051893970800547,
+      "r2": -0.028892148329056955,
+      "pearson_r": -0.18340854072364118,
+      "bias": -1.4184258582907225,
+      "median_absolute_error": 5.0,
+      "p90_absolute_error": 18.200000000000003,
+      "within_5_percent": 50.018261504748,
+      "within_10_percent": 68.51716581446311,
+      "n_cases": 3
+    },
+    "random_forest": {
+      "n_windows": 5476,
+      "mae": 9.14466586010881,
+      "rmse": 12.759368753321764,
+      "r2": -0.15323450101460323,
+      "pearson_r": 0.3151969552170961,
+      "bias": 4.355682938649907,
+      "median_absolute_error": 5.965531385582555,
+      "p90_absolute_error": 23.213626683493246,
+      "within_5_percent": 42.531044558071585,
+      "within_10_percent": 69.68590211833455,
+      "n_cases": 3
+    },
+    "hist_gradient_boosting": {
+      "n_windows": 5476,
+      "mae": 10.765408406692174,
+      "rmse": 15.085828763289717,
+      "r2": -0.612120855058697,
+      "pearson_r": 0.2212477690235988,
+      "bias": 6.655612005339309,
+      "median_absolute_error": 6.7024732032298395,
+      "p90_absolute_error": 27.590394978036827,
+      "within_5_percent": 39.481373265157046,
+      "within_10_percent": 64.97443389335281,
+      "n_cases": 3
+    }
+  }
+}

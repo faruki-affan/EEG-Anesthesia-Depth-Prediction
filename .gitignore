@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Downloaded VitalDB files are large and can be regenerated.
+data/metadata/*
+data/raw/*
+!data/metadata/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+outputs/figures/*
+outputs/metrics/*
+!outputs/figures/.gitkeep
+!outputs/metrics/.gitkeep
