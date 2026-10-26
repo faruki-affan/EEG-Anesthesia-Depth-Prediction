@@ -1,0 +1,158 @@
+# Phase 1 configuration. Later phases should extend this file rather than
+# scattering constants through the code.
+
+vitaldb:
+  api_base: https://api.vitaldb.net
+  # Packed case files used only as an alignment cross-check.
+  dataset_version: "1.0.1"
+  request_timeout_sec: 180
+  max_retries: 3
+  retry_backoff_sec: 2.0
+
+# Names below are the catalog names from PhysioNet track_names.csv.
+# The loader still confirms each name exists in the live /trks index
+# before downloading. A missing name excludes that signal.
+tracks:
+  eeg_primary: BIS/EEG1_WAV
+  eeg_secondary: BIS/EEG2_WAV
+  bis: BIS/BIS
+  # Small numeric tracks saved when present. A case is still accepted
+  # if these are absent.
+  optional:
+    - BIS/SQI
+    - BIS/SR
+    - BIS/EMG
+  catalog:
+    BIS/EEG1_WAV:
+      kind: waveform
+      sampling_rate_hz: 128
+      unit: uV
+    BIS/EEG2_WAV:
+      kind: waveform
+      sampling_rate_hz: 128
+      unit: uV
+    BIS/BIS:
+      kind: numeric
+      expected_interval_sec: 1
+      unit: unitless
+    BIS/SQI:
+      kind: numeric
+      expected_interval_sec: 1
+      unit: "%"
+    BIS/SR:
+      kind: numeric
+      expected_interval_sec: 1
+      unit: "%"
+    BIS/EMG:
+      kind: numeric
+      expected_interval_sec: 1
+      unit: dB
+
+download:
+  # Stop after this many cases pass the quality checks.
+  max_cases: 3
+  # Do not walk the whole cohort if early cases are unusable.
+  max_attempts: 12
+  min_overlap_sec: 600
+  max_eeg_missing_fraction: 0.50
+  max_bis_missing_gap_sec: 300
+  sampling_rate_tolerance: 0.02
+  # Compare one accepted case with the packed .vital file. The official
+  # library warns that per-track CSV time can be shifted relative to the
+  # recording timeline.
+  crosscheck_vitalfile: true
+
+paths:
+  metadata_dir: data/metadata
+  raw_dir: data/raw
+  figures_dir: outputs/figures
+
+plot:
+  excerpt_sec: 30
+  # Skip a leading stretch that is often still empty at recording start.
+  excerpt_search_sec: 600
+
+# Phase 2 reads the cached Phase 1 NumPy tracks. It does not download again.
+preprocessing:
+  bandpass_low_hz: 0.5
+  bandpass_high_hz: 45.0
+  butterworth_order: 4
+  # NaN runs longer than this stay open. Each finite side is filtered on its
+  # own so the filter does not cross the gap. Shorter interior gaps are
+  # bridged only while the filter runs, then restored to missing.
+  max_interpolate_gap_sec: 1.0
+
+windows:
+  length_sec: 10.0
+  overlap_fraction: 0.5
+  expected_sampling_rate_hz: 128.0
+  expected_window_samples: 1280
+
+features:
+  welch_nperseg: 256
+  welch_noverlap: 128
+  welch_window: hann
+  # Fraction of in-band power below the spectral edge (SEF95).
+  spectral_edge_fraction: 0.95
+  bands:
+    delta: [0.5, 4.0]
+    theta: [4.0, 8.0]
+    alpha: [8.0, 13.0]
+    beta: [13.0, 30.0]
+    gamma: [30.0, 45.0]
+
+quality:
+  max_window_missing_fraction: 0.05
+  flatline_std_uv: 0.5
+  # Ten-second peaks in these cases are typically near 70 uV. A peak above
+  # 500 uV, or a window standard deviation above 150 uV, is a severe artifact.
+  artifact_peak_uv: 500.0
+  artifact_std_uv: 150.0
+  bis_min: 0.0
+  bis_max: 100.0
+  min_bis_samples: 3
+  # Baseline label uses BIS inside the EEG window. A positive delay shifts
+  # only the BIS lookup, for a later processing-delay comparison.
+  bis_delay_sec: 0.0
+
+phase2:
+  case_ids: [1, 2, 3]
+  features_csv: data/processed/eeg_features.csv
+  rejections_csv: data/processed/window_rejections.csv
+  summary_json: data/processed/phase2_summary.json
+  windows_dir: data/processed/windows
+  figures_dir: outputs/figures/phase2
+
+# Phase 3 trains regression models on the Phase 2 feature table.
+# It does not download recordings and it does not refit the spectrum.
+phase3:
+  features_csv: data/processed/eeg_features.csv
+  expected_windows: 5712
+  expected_cases: [1, 2, 3]
+  models_dir: models/ml
+  figures_dir: outputs/figures/phase3
+  reports_dir: outputs/reports/phase3
+  predictions_dir: outputs/predictions/phase3
+  random_state: 42
+  clip_predictions: true
+  bis_min: 0.0
+  bis_max: 100.0
+  # log1p is applied to a column only when the training fold is non-negative
+  # and its skewness is at least this value.
+  log1p_skew_threshold: 1.0
+  permutation_repeats: 5
+  permutation_max_windows: 500
+  # SQI is a sensitivity filter, not a model input.
+  sqi_sensitivity_min: 50.0
+  run_sqi_sensitivity: true
+  train_all_cases_model: true
+  random_forest:
+    n_estimators: 200
+    max_depth: 15
+    min_samples_leaf: 5
+    n_jobs: -1
+  hist_gradient_boosting:
+    max_iter: 200
+    learning_rate: 0.05
+    max_leaf_nodes: 31
+    early_stopping: false
