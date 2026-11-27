@@ -156,3 +156,21 @@ phase3:
     learning_rate: 0.05
     max_leaf_nodes: 31
     early_stopping: false
+
+phase4:
+  seed: 42
+  epochs: 20
+  batch_size: 64
+  learning_rate: 0.001
+  patience: 5
+  lr_patience: 2
+  cpu_threads: 4
+  models_dir: models/cnn
+  reports_dir: outputs/reports/phase4
+  figures_dir: outputs/figures/phase4
+
+dashboard:
+  excerpt_sec: 30.0
+  max_plot_points: 12000
+  playback_refresh_sec: 0.5
+  playback_default_speed: 60
