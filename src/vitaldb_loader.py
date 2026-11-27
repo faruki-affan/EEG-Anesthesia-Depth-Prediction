@@ -417,10 +417,10 @@ class VitalDBLoader:
         cases_path = _stored_table(self.metadata_dir, "cases")
         if refresh or not trks_path.exists():
             logger.info("Downloading track index from %s/trks", self.api_base)
-            download_file(self.session, f"{self.api_base}/trks", trks_path, self.timeout)
+            trks_path = download_file(self.session, f"{self.api_base}/trks", trks_path, self.timeout, refresh)
         if refresh or not cases_path.exists():
             logger.info("Downloading clinical table from %s/cases", self.api_base)
-            download_file(self.session, f"{self.api_base}/cases", cases_path, self.timeout)
+            cases_path = download_file(self.session, f"{self.api_base}/cases", cases_path, self.timeout, refresh)
         trks = _read_csv(trks_path, dtype={"caseid": "int64", "tname": "string", "tid": "string"})
         cases = _read_csv(cases_path)
         self._validate_index(trks, cases)
