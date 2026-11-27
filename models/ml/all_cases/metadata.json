@@ -1,8 +1,8 @@
 {
   "models": [
-    "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases\\median.joblib",
-    "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases\\random_forest.joblib",
-    "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases\\hist_gradient_boosting.joblib"
+    "models/ml/all_cases/median.joblib",
+    "models/ml/all_cases/random_forest.joblib",
+    "models/ml/all_cases/hist_gradient_boosting.joblib"
   ],
   "training_cases": [
     1,

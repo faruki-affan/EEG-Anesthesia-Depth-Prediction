@@ -116,6 +116,26 @@ def _accepted_case_ids(config: dict[str, Any]) -> set[int] | None:
     return {int(case_id) for case_id in payload.get("accepted_caseids", [])}
 
 
+SIGNAL_CONFIG_SECTIONS = ("windows", "preprocessing", "quality")
+
+
+def window_config_snapshot(config: dict[str, Any]) -> dict[str, Any]:
+    """Settings used to produce the waveform archives and paired feature rows."""
+    return {key: config[key] for key in (*SIGNAL_CONFIG_SECTIONS, "features")}
+
+
+def validate_window_config(archive: dict[str, Any], expected: dict[str, Any]) -> None:
+    stored = archive["window_config"]
+    if stored is None:
+        raise ValueError("Processed windows have no settings metadata. Run python -m src.phase2 to rebuild them.")
+    mismatched = [key for key, value in expected.items() if stored.get(key) != value]
+    if mismatched:
+        raise ValueError(
+            f"Processed window settings differ in {', '.join(mismatched)}. "
+            "Rebuild Phase 2 with the matching settings before continuing."
+        )
+
+
 def save_processed_windows(path: Path, payload: dict[str, np.ndarray]) -> None:
     """Write one case of fixed-length EEG windows for a later 1D CNN."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -147,6 +167,8 @@ def load_processed_windows(path: Path) -> dict[str, Any]:
             "case_id": int(archive["case_id"]),
             "sampling_rate_hz": float(archive["sampling_rate_hz"]),
             "sample_interval_sec": float(archive["sample_interval_sec"]),
+            "window_config": json.loads(archive["window_config_json"].item())
+            if "window_config_json" in archive.files else None,
             "bandpass_low_hz": float(archive["bandpass_low_hz"]) if "bandpass_low_hz" in archive.files else None,
             "bandpass_high_hz": float(archive["bandpass_high_hz"]) if "bandpass_high_hz" in archive.files else None,
         }
@@ -279,8 +301,7 @@ def _window_archive(
     n_samples: int,
     fs: float,
     interval: float,
-    low_hz: float,
-    high_hz: float,
+    config: dict[str, Any],
 ) -> dict[str, np.ndarray]:
     if signals:
         eeg = np.stack(signals).astype(np.float32, copy=False)
@@ -303,8 +324,9 @@ def _window_archive(
         "case_id": np.int32(case_id),
         "sampling_rate_hz": np.float64(fs),
         "sample_interval_sec": np.float64(interval),
-        "bandpass_low_hz": np.float64(low_hz),
-        "bandpass_high_hz": np.float64(high_hz),
+        "bandpass_low_hz": np.float64(config["preprocessing"]["bandpass_low_hz"]),
+        "bandpass_high_hz": np.float64(config["preprocessing"]["bandpass_high_hz"]),
+        "window_config_json": np.asarray(json.dumps(window_config_snapshot(config), sort_keys=True)),
     }
 
 
@@ -585,8 +607,7 @@ def process_case(case_id: int, config: dict[str, Any], figures_dir: Path) -> dic
         n_window,
         fs,
         interval,
-        float(pre["bandpass_low_hz"]),
-        float(pre["bandpass_high_hz"]),
+        config,
     )
     figures = plot_case(
         case_id,

@@ -1,0 +1,84 @@
+{
+  "training_cases": [
+    2,
+    5,
+    6,
+    8,
+    10
+  ],
+  "validation_case": 3,
+  "test_cases": [
+    1,
+    4,
+    9
+  ],
+  "history_windows": 5,
+  "history_seconds": 30.0,
+  "validation_mae": {
+    "5": 9.956889152526855,
+    "11": 10.257637977600098
+  },
+  "validation_epoch": {
+    "5": 10,
+    "11": 3
+  },
+  "n_test_windows": 6735,
+  "models": {
+    "single_window": {
+      "n_windows": 6735,
+      "mae": 9.931539877910657,
+      "rmse": 12.756740070290856,
+      "r2": 0.410317007054244,
+      "pearson_r": 0.6517571066210561,
+      "bias": -0.6413878310443565,
+      "median_absolute_error": 8.76265106201172,
+      "p90_absolute_error": 18.40189041137696,
+      "within_5_percent": 28.47809948032665,
+      "within_10_percent": 57.089829250185595,
+      "case_averaged_mae": 11.34328727020098
+    },
+    "temporal": {
+      "n_windows": 6735,
+      "mae": 8.618836238439117,
+      "rmse": 11.149023635956695,
+      "r2": 0.5495849827909426,
+      "pearson_r": 0.7586562939847128,
+      "bias": 2.2123644819026005,
+      "median_absolute_error": 7.470208740234376,
+      "p90_absolute_error": 16.243782501220704,
+      "within_5_percent": 34.71417965850037,
+      "within_10_percent": 65.25612472160356,
+      "case_averaged_mae": 8.94012865708768
+    },
+    "random_forest": {
+      "n_windows": 6735,
+      "mae": 11.797851914360194,
+      "rmse": 14.913382671675262,
+      "r2": 0.19408078006356944,
+      "pearson_r": 0.5083922566114755,
+      "bias": 3.981770424751062,
+      "median_absolute_error": 10.895669852838537,
+      "p90_absolute_error": 22.87730915689372,
+      "within_5_percent": 27.85449146250928,
+      "within_10_percent": 47.27542687453601,
+      "case_averaged_mae": 11.667816327405077
+    }
+  },
+  "transition_threshold_bis": 60,
+  "transition_matching_tolerance_sec": 30,
+  "seed": 42,
+  "device": "cpu",
+  "training_configuration": {
+    "seed": 42,
+    "epochs": 12,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "patience": 5,
+    "lr_patience": 2,
+    "cpu_threads": 4,
+    "models_dir": "models/cnn",
+    "reports_dir": "outputs/reports/phase4",
+    "figures_dir": "outputs/figures/phase4",
+    "temporal_epochs": 12
+  }
+}

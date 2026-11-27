@@ -1,5 +1,6 @@
 """Dashboard case discovery and educational BIS labels."""
 
+from src.infer_cnn import expanded_windows_dir
 from src.ml_data import resolve_path
 
 
@@ -7,6 +8,9 @@ def available_cases(config):
     raw = resolve_path(config["paths"]["raw_dir"])
     processed = resolve_path(config["phase2"]["windows_dir"])
     paths = [*raw.glob("case_*/eeg_primary.npz"), *processed.glob("case_*.npz")]
+    expanded = expanded_windows_dir(config)
+    if expanded is not None:
+        paths.extend(expanded.glob("case_*.npz"))
     names = [path.parent.name if path.name == "eeg_primary.npz" else path.stem for path in paths]
     return sorted({int(name[5:]) for name in names if name[5:].isdigit()})
 

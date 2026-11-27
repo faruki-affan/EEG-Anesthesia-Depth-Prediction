@@ -15,3 +15,6 @@ outputs/figures/*
 outputs/metrics/*
 !outputs/figures/.gitkeep
 !outputs/metrics/.gitkeep
+
+/web/node_modules/
+/web/dist/

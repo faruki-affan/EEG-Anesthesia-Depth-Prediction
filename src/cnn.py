@@ -26,8 +26,16 @@ class BISConvNet(nn.Module):
             nn.Linear(64, 1),
         )
 
+    def encode(self, eeg):
+        for layer in list(self.network.children())[:-1]:
+            eeg = layer(eeg)
+        return eeg
+
+    def readout(self, encoded):
+        return self.network[-1](encoded).squeeze(-1)
+
     def forward(self, eeg):
-        return self.network(eeg).squeeze(-1)
+        return self.readout(self.encode(eeg))
 
 
 def normalize(eeg, mean, scale):

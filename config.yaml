@@ -174,3 +174,12 @@ dashboard:
   max_plot_points: 12000
   playback_refresh_sec: 0.5
   playback_default_speed: 60
+
+temporal:
+  cohort_dir: .venv/temporal-cohort
+  max_cases: 9
+  test_cases: 3
+  epochs: 12
+  history_windows: [5, 11]
+  models_dir: models/temporal
+  reports_dir: outputs/reports/temporal

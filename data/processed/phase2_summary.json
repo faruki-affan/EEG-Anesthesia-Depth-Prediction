@@ -4,26 +4,26 @@
   "spectral_edge_fraction": 0.95,
   "total_accepted": 5712,
   "total_rejected": 619,
-  "features_csv": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\data\\processed\\eeg_features.csv",
-  "rejections_csv": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\data\\processed\\window_rejections.csv",
+  "features_csv": "data/processed/eeg_features.csv",
+  "rejections_csv": "data/processed/window_rejections.csv",
   "windows": [
     {
       "case_id": 1,
-      "path": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\data\\processed\\windows\\case_00001.npz",
+      "path": "data/processed/windows/case_00001.npz",
       "n_windows": 2091,
       "n_samples": 1280,
       "sampling_rate_hz": 128.0
     },
     {
       "case_id": 2,
-      "path": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\data\\processed\\windows\\case_00002.npz",
+      "path": "data/processed/windows/case_00002.npz",
       "n_windows": 2910,
       "n_samples": 1280,
       "sampling_rate_hz": 128.0
     },
     {
       "case_id": 3,
-      "path": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\data\\processed\\windows\\case_00003.npz",
+      "path": "data/processed/windows/case_00003.npz",
       "n_windows": 711,
       "n_samples": 1280,
       "sampling_rate_hz": 128.0
@@ -58,11 +58,11 @@
       "accepted_missing_fraction_max": 0.0140625,
       "accepted_windows_with_any_missing": 1,
       "figures": [
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00001_raw_vs_filtered.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00001_psd.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00001_band_power.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00001_bis_vs_time.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00001_bis_distribution.png"
+        "outputs/figures/phase2/case_00001_raw_vs_filtered.png",
+        "outputs/figures/phase2/case_00001_psd.png",
+        "outputs/figures/phase2/case_00001_band_power.png",
+        "outputs/figures/phase2/case_00001_bis_vs_time.png",
+        "outputs/figures/phase2/case_00001_bis_distribution.png"
       ]
     },
     {
@@ -93,11 +93,11 @@
       "accepted_missing_fraction_max": 0.02109375,
       "accepted_windows_with_any_missing": 4,
       "figures": [
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00002_raw_vs_filtered.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00002_psd.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00002_band_power.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00002_bis_vs_time.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00002_bis_distribution.png"
+        "outputs/figures/phase2/case_00002_raw_vs_filtered.png",
+        "outputs/figures/phase2/case_00002_psd.png",
+        "outputs/figures/phase2/case_00002_band_power.png",
+        "outputs/figures/phase2/case_00002_bis_vs_time.png",
+        "outputs/figures/phase2/case_00002_bis_distribution.png"
       ]
     },
     {
@@ -128,11 +128,11 @@
       "accepted_missing_fraction_max": 0.0,
       "accepted_windows_with_any_missing": 0,
       "figures": [
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00003_raw_vs_filtered.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00003_psd.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00003_band_power.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00003_bis_vs_time.png",
-        "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase2\\case_00003_bis_distribution.png"
+        "outputs/figures/phase2/case_00003_raw_vs_filtered.png",
+        "outputs/figures/phase2/case_00003_psd.png",
+        "outputs/figures/phase2/case_00003_band_power.png",
+        "outputs/figures/phase2/case_00003_bis_vs_time.png",
+        "outputs/figures/phase2/case_00003_bis_distribution.png"
       ]
     }
   ],

@@ -1,0 +1,10 @@
+case_id,model,reference_crossings,predicted_crossings,matched_crossings,median_signed_lag_sec,median_absolute_lag_sec
+1,single_window,28,21,1,5.0,5.0
+4,single_window,11,49,3,-10.0,20.0
+9,single_window,25,31,2,5.0,5.0
+1,temporal,28,16,1,5.0,5.0
+4,temporal,11,34,5,-5.0,5.0
+9,temporal,25,27,5,5.0,10.0
+1,random_forest,28,37,1,0.0,0.0
+4,random_forest,11,107,3,-10.0,10.0
+9,random_forest,25,35,5,10.0,20.0

@@ -13,3 +13,5 @@ torch>=2.6
 plotly>=5.22
 streamlit>=1.57
 pytest>=8.0
+fastapi>=0.115
+uvicorn>=0.34

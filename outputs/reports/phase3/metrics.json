@@ -1098,7 +1098,7 @@
     }
   },
   "all_cases_model": {
-    "directory": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml\\all_cases",
+    "directory": "models/ml/all_cases",
     "training_cases": [
       1,
       2,
@@ -1109,9 +1109,9 @@
   "train_seconds": 23.31591010000011,
   "rows_excluded": [],
   "artifacts": {
-    "models_dir": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\models\\ml",
-    "predictions": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\predictions\\phase3\\oof_predictions.csv",
-    "figures_dir": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\figures\\phase3",
-    "reports_dir": "C:\\Users\\affan\\OneDrive\\Desktop\\DoA\\model\\EEG-Anesthesia-Depth-Prediction\\outputs\\reports\\phase3"
+    "models_dir": "models/ml",
+    "predictions": "outputs/predictions/phase3/oof_predictions.csv",
+    "figures_dir": "outputs/figures/phase3",
+    "reports_dir": "outputs/reports/phase3"
   }
 }

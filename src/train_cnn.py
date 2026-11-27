@@ -14,7 +14,7 @@ from src.cnn import BISConvNet, normalize, predict_windows
 from src.ml_data import MODEL_KEYS, assert_case_separation, load_feature_table
 from src.ml_data import resolve_path, select_model_features, write_json
 from src.ml_metrics import metrics_by_bis_range, regression_metrics
-from src.phase2 import load_processed_windows
+from src.phase2 import SIGNAL_CONFIG_SECTIONS, load_processed_windows, validate_window_config, window_config_snapshot
 from src.predict import make_estimator
 from src.vitaldb_loader import load_config
 
@@ -62,10 +62,7 @@ def load_training_cases(config):
             ]
         ):
             raise ValueError(f"Case {case_id} has inconsistent feature and EEG window archives.")
-        for edge in ("low", "high"):
-            key = f"bandpass_{edge}_hz"
-            if archive[key] != config["preprocessing"][key]:
-                raise ValueError(f"Case {case_id} archive {key} differs from config.yaml.")
+        validate_window_config(archive, window_config_snapshot(config))
         cases[int(case_id)] = (table, eeg, archive["sampling_rate_hz"])
     return cases
 
@@ -92,9 +89,8 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None):
     return total / len(loader.dataset)
 
 
-def fit_fold(cases, training, validation, test, config, device, path):
+def fit_single_window(cases, training, validation, config, device, path, seed, test=None):
     cfg = config["phase4"]
-    seed = cfg["seed"] + test
     torch.manual_seed(seed)
     train_frame = pd.concat([cases[case][0] for case in training], ignore_index=True)
     train_eeg = np.concatenate([cases[case][1] for case in training])
@@ -115,7 +111,7 @@ def fit_fold(cases, training, validation, test, config, device, path):
         train_loss = run_epoch(model, train_batches, loss_fn, device, optimizer)
         val_loss = run_epoch(model, val_batches, loss_fn, device)
         history.append(dict(test_case=test, epoch=epoch, train_loss=train_loss, validation_loss=val_loss))
-        print(f"Test case {test} | epoch {epoch:02d} | train {train_loss:.4f} | validation {val_loss:.4f}", flush=True)
+        print(f"Single-window CNN | epoch {epoch:02d} | train {train_loss:.4f} | validation {val_loss:.4f}", flush=True)
         scheduler.step(val_loss)
         if val_loss < best_loss:
             best_loss = val_loss
@@ -125,7 +121,7 @@ def fit_fold(cases, training, validation, test, config, device, path):
                 sampling_rate_hz=float(config["windows"]["expected_sampling_rate_hz"]),
                 train_cases=training, validation_case=validation, test_case=test,
                 epoch=epoch, validation_loss=val_loss, seed=seed,
-                signal_config={key: config[key] for key in ("windows", "preprocessing", "quality")},
+                signal_config={key: config[key] for key in SIGNAL_CONFIG_SECTIONS},
             )
         if best is not None and epoch - best["epoch"] >= cfg["patience"]:
             break
@@ -135,6 +131,15 @@ def fit_fold(cases, training, validation, test, config, device, path):
     torch.save(best, temporary)
     temporary.replace(path)
 
+    return model, best, history
+
+
+def fit_fold(cases, training, validation, test, config, device, path):
+    cfg = config["phase4"]
+    model, best, history = fit_single_window(
+        cases, training, validation, config, device, path, cfg["seed"] + test, test=test,
+    )
+    train_frame = pd.concat([cases[case][0] for case in training], ignore_index=True)
     test_frame, test_eeg, fs = cases[test]
     results = test_frame[KEYS].copy()
     model.load_state_dict(best["weights"])
