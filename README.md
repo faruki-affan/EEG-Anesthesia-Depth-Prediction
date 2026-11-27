@@ -1,6 +1,6 @@
 # EEG-Based Depth of Anesthesia Estimation
 
-Educational project that predicts the recorded Bispectral Index (BIS) from intraoperative EEG. The current tree contains **Phase 1** (VitalDB discovery, a small real-data download, and a waveform plot), **Phase 2** (bandpass filtering, windowing, Welch spectral features, and BIS alignment), and **Phase 3** (leave-one-case-out regression from those features). A 1D CNN and the Streamlit dashboard are not implemented yet.
+Educational project that predicts the recorded Bispectral Index (BIS) from intraoperative EEG. The current tree contains **Phase 1** (VitalDB discovery, a small real-data download, and a waveform plot), **Phase 2** (bandpass filtering, windowing, Welch spectral features, and BIS alignment), and **Phase 3** (leave-one-case-out regression from those features). Phases 4–6 add 1D CNN training and evaluation, a Streamlit dashboard, and reproducibility tests.
 
 This software is for education and research. It does not make clinical decisions and it does not reproduce the proprietary BIS algorithm.
 
@@ -38,7 +38,7 @@ py -3 -m venv .venv
 .\.venv\Scripts\python -m pip install numpy pandas PyYAML requests matplotlib vitaldb scipy scikit-learn joblib pytest
 ```
 
-`requirements.txt` also lists the libraries planned for later phases. Phase 1 needs the packages above except SciPy, scikit-learn, joblib, and pytest. Phase 2 needs SciPy as well. Phase 3 needs scikit-learn and joblib.
+`requirements.txt` lists the dependencies for all six phases. Phase 1 needs the packages above except SciPy, scikit-learn, joblib, and pytest. Phase 2 needs SciPy as well. Phase 3 needs scikit-learn and joblib.
 
 ## Phase 1 commands
 
@@ -112,4 +112,95 @@ Three cases are not evidence of clinical generalization.
 
 ## Project layout
 
-Phase 1 modules are `src/vitaldb_loader.py` and `scripts/verify_phase1.py`. Phase 2 modules are `src/preprocess.py`, `src/features.py`, `src/windows.py`, `src/phase2.py`, `scripts/verify_phase2.py`, and `tests/test_phase2.py`. Phase 3 modules are `src/train_ml.py`, `src/predict.py`, `src/ml_data.py`, `src/ml_metrics.py`, `src/ml_plots.py`, `scripts/verify_phase3.py`, and `tests/test_train_ml.py`. The 1D CNN and the Streamlit dashboard are later phases and are not in this tree yet.
+Phase 1 modules are `src/vitaldb_loader.py` and `scripts/verify_phase1.py`. Phase 2 modules are `src/preprocess.py`, `src/features.py`, `src/windows.py`, `src/phase2.py`, `scripts/verify_phase2.py`, and `tests/test_phase2.py`. Phase 3 modules are `src/train_ml.py`, `src/predict.py`, `src/ml_data.py`, `src/ml_metrics.py`, `src/ml_plots.py`, `scripts/verify_phase3.py`, and `tests/test_train_ml.py`. Phase 4 adds src/train_cnn.py, src/cnn.py, src/infer_cnn.py and src/evaluate.py. Phase 5 adds app.py and dashboard/components.py. Phase 6 adds tests/test_phase456.py.
+
+## Phases 4–6 · CNN, dashboard, and verification
+
+Run the commands from the project root in PowerShell. A 64-bit Python 3.11
+environment is recommended. This workflow also runs with Python 3.10 and
+compatible package builds. For CPU-only PyTorch, install the CPU wheel before
+the remaining requirements.
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python -m pip install --upgrade pip
+.\.venv\Scripts\python -m pip install "torch>=2.6" --index-url https://download.pytorch.org/whl/cpu
+.\.venv\Scripts\python -m pip install -r requirements.txt
+```
+
+### Prepare the data
+
+The bundled accepted windows and feature table are enough to train the CNN and
+open the dashboard offline. Download the three original recordings to enable
+raw waveform inspection and playback on the recording timeline. Run Phase 2
+again when preparing from scratch or changing signal processing. Rebuild the
+training artifacts after changing preprocessing, case membership, or labels.
+
+```powershell
+.\.venv\Scripts\python -m src.vitaldb_loader
+.\.venv\Scripts\python -m src.phase2
+```
+
+The data are derived from VitalDB. Attribute the dataset and identify the
+filtering, windowing and label aggregation if redistributing derivatives under
+the CC BY 4.0 terms. Cite [the dataset](https://physionet.org/content/vitaldb/)
+and [Lee et al., Scientific Data (2022)](https://doi.org/10.1038/s41597-022-01411-5).
+
+### Train and evaluate
+
+```powershell
+.\.venv\Scripts\python -m src.train_cnn --device cpu
+```
+
+Omit `--device cpu` to select CUDA automatically when available.
+`config.yaml` controls the seed, epoch budget, batch size and early stopping.
+The trainer validates the Phase 2 waveform archives against the feature table
+and prints training and validation loss after each epoch.
+
+Each fold holds out one entire case for testing and reserves a second case for
+validation. CNN weights and normalization come from the training cases. The
+checkpoint with the lowest validation Smooth L1 loss is evaluated once on that
+fold's test case. The median, random forest and histogram gradient boosting
+models use the same training cases and test windows as the CNN in each fold.
+Phase 3 used both non-test cases for training, so its scores answer a different
+comparison.
+
+- `models/cnn/test_case_*.pt` contains the best validation checkpoint and its
+  normalization parameters, case assignments and signal configuration.
+- `outputs/reports/phase4/` contains pooled and per-case scores, BIS-range
+  results, loss history and out-of-fold predictions.
+- `outputs/figures/phase4/` contains timelines, error plots, scatter plots,
+  training curves and descriptive Bland–Altman limits.
+
+### Run the demo and tests
+
+```powershell
+.\.venv\Scripts\python -m streamlit run app.py --global.developmentMode false --server.address 127.0.0.1 --server.port 8501 --server.headless true
+.\.venv\Scripts\python -m pytest tests -q
+```
+
+Open the URL printed by Streamlit. Choose a case in the sidebar and click
+**Run CNN inference** on either prediction page. For the three evaluated cases
+the app uses the checkpoint that held out the selected case. For a new local
+case it averages the fold checkpoints. Raw recordings can be scored without a
+BIS track. With only the bundled windows, the app can show filtered EEG,
+spectral plots, and replay across the accepted windows. The test suite checks
+case separation, feature/window alignment, waveform handling with missing BIS,
+checkpoint inference, and dashboard navigation and replay.
+
+For command-line inference on a cached case, export a CSV with one row per usable EEG window.
+
+```powershell
+.\.venv\Scripts\python -m src.infer_cnn 1 --output outputs/predictions/case_00001_cnn.csv
+```
+
+### Research limitations
+
+This demo estimates a recorded monitor index. Its research-only scope excludes
+clinical use and real-time patient monitoring. The exploration cohort has three
+surgical cases, with one training case per fold. Grouping is by VitalDB case ID.
+Overlapping windows are correlated, BIS may lag EEG, and recorded targets can
+include atypical zero values or low signal quality. Reported Bland–Altman limits
+are descriptive because repeated windows are clustered within cases. The
+zero-phase filtering and playback use pre-recorded data. Generalization would
+require a larger cohort with independent patient-level validation.
